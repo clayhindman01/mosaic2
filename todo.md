@@ -1,7 +1,6 @@
-TODO: Research spliting image into tiles
+TODO: Research spliting image into tiles. </br>
+TODO: Get tiles primary color and store it.</br>
 
-TODO: Get tiles primary color and store it.
+TODO: Attach tiles to a certain mosaic.</br>
 
-TODO: Attach tiles to a certain mosaic
-
-TODO: Finalize UI design
+TODO: Finalize UI design.</br>
