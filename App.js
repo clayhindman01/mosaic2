@@ -3,6 +3,9 @@ import { useEffect } from 'react';
 import { StyleSheet, Text, SafeAreaView } from 'react-native';
 import { getUser } from "./api/api_utils"
 import Mosaic from './components/Mosaic';
+import Account from './components/Account';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 export default function App() {
 
@@ -10,11 +13,24 @@ export default function App() {
     console.log(getUser())
   }, [])
 
+  const Stack = createNativeStackNavigator();
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Mosaic />
-      <StatusBar style="auto" />
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator
+      screenOptions={{
+        headerShown: false
+      }}>
+        <Stack.Screen 
+          name="mosaic"
+          component={Mosaic}
+        />
+        <Stack.Screen 
+          name="account"
+          component={Account}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 

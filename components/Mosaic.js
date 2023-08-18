@@ -1,16 +1,38 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, SafeAreaView } from 'react-native'
+import { View, Text, StyleSheet, Image, SafeAreaView, Dimensions, Pressable } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Tile from './Tile';
 
-export default function Mosaic() {
+export default function Mosaic({navigation}) {
+
+  const handleAccountIconPress = () => {
+    navigation.navigate("account")
+  }
+
   return (
     <SafeAreaView style={styles.container}>
-      <Icon name="account-circle" size={65} color="black" style={styles.accountIcon} />
+      <View style={styles.iconContainer}>
+        {/* <Icon
+          name="arrow-back-ios"
+          size={35}
+          style={styles.accountIcon}
+        /> */}
+        <Pressable
+        onPress={() => handleAccountIconPress()} >
+          <Icon 
+            name="account-circle" 
+            size={65} 
+            color="black" 
+            style={styles.accountIcon}
+          />
+        </Pressable>
+      </View>
         <View style={styles.mosaic}>
           <Image 
             source={require("../assets/testProfile.jpg")}
             style={styles.image}
           />
+          <Tile />
         </View>
     </SafeAreaView>
   )
@@ -18,37 +40,39 @@ export default function Mosaic() {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignContent: "center"
+      width: Dimensions.get('window').width,
+      flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignContent: "center",
+        marginTop: 50,
     },
     mosaic: {
       backgroundColor: 'black',
       opacity: 0.93,
-      flex: 1,
-      marginTop: 150,
-      marginRight: 20,
-      height: '75%',
-      borderTopRightRadius: 50,
-      borderBottomRightRadius: 50,
-      borderBottomLeftRadius: 50,
+      width: '97%',
+      marginRight: -10,
+      height: '85%',
+      borderTopRightRadius: 40,
+      borderBottomRightRadius: 40,
+      borderBottomLeftRadius: 40,
       padding: 100,
-      position: 'relative',
-      left: 0,
       justifyContent: 'center',
       alignItems: "center"
     },
     image: {
-      tintColor: 'gray',
-      // opacity: 0.5,
+      tintColor: 'rgba(52, 52, 52, 0.8)',
       height: '125%',
       width: '170%'
     },
     accountIcon: {
-      position: 'absolute',
-      right: 5,
-      top: 50,
       opacity:0.93,
+    },
+    iconContainer: {
+      flexDirection: 'row-reverse',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      width: '100%',
+      paddingBottom: 30,
+      paddingHorizontal: '2.5%'
     }
 })
