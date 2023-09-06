@@ -1,7 +1,6 @@
-import React from 'react'
-import { View, Text, StyleSheet, Image, SafeAreaView, Dimensions, Pressable } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, Text, StyleSheet, Image, SafeAreaView, Dimensions, Pressable, ScrollView } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Tile from './Tile';
 
 export default function Mosaic({navigation}) {
 
@@ -9,14 +8,19 @@ export default function Mosaic({navigation}) {
     navigation.navigate("account")
   }
 
+  const [state, setState] = useState([]);
+
+  useEffect(() => {
+    setState({
+      height: Image.resolveAssetSource(require("../assets/testProfile.jpg")).height,
+      width: Image.resolveAssetSource(require("../assets/testProfile.jpg")).width
+    })
+  }, [])
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.iconContainer}>
-        {/* <Icon
-          name="arrow-back-ios"
-          size={35}
-          style={styles.accountIcon}
-        /> */}
+        <Text style={styles.MosaicText}>Mosaic</Text>
         <Pressable
         onPress={() => handleAccountIconPress()} >
           <Icon 
@@ -28,11 +32,14 @@ export default function Mosaic({navigation}) {
         </Pressable>
       </View>
         <View style={styles.mosaic}>
-          <Image 
-            source={require("../assets/testProfile.jpg")}
-            style={styles.image}
-          />
-          <Tile />
+          <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1 }}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1 }}>
+              <Image 
+                source={{uri: require("../assets/background.jpg")}}
+                style={[styles.image, {width: parseInt(state.width) * 4.5, height: parseInt(state.height) * 4.5}]}
+              />
+            </ScrollView>
+          </ScrollView>
         </View>
     </SafeAreaView>
   )
@@ -55,24 +62,27 @@ const styles = StyleSheet.create({
       borderTopRightRadius: 40,
       borderBottomRightRadius: 40,
       borderBottomLeftRadius: 40,
-      padding: 100,
+      padding: '5%',
       justifyContent: 'center',
       alignItems: "center"
     },
     image: {
-      tintColor: 'rgba(52, 52, 52, 0.8)',
-      height: '125%',
-      width: '170%'
+      // tintColor: 'rgba(52, 52, 52, 0.8)',
     },
     accountIcon: {
       opacity:0.93,
     },
     iconContainer: {
-      flexDirection: 'row-reverse',
+      flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
       width: '100%',
       paddingBottom: 30,
       paddingHorizontal: '2.5%'
+    },
+    MosaicText: {
+      fontSize: 30,
+      opacity: 0.93,
+      fontWeight: '400'
     }
 })

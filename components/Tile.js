@@ -3,8 +3,6 @@ import { View, StyleSheet } from 'react-native'
 
 export default function Tile() {
 
-    
-
   return (
     <View style={styles.tile}></View>
   )

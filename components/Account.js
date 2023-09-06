@@ -29,9 +29,19 @@ export default function Account({navigation}) {
                 style={styles.accountPicture}
             />
         </View>
+
         <View style={styles.friendsContainer}>
+          <View styles={styles.friendsNumber}>
             <Text style={styles.textStyle}>Friends</Text>
+            <Text style={{textAlign: 'center'}}>292</Text>
+          </View>
+          <View>
             <Text style={styles.textStyle}>Tiles Taken</Text>
+            <Text style={{textAlign: 'center'}}>17</Text>
+          </View>
+        </View>
+
+        <View>
         </View>
       </View>
   </SafeAreaView>
@@ -70,5 +80,10 @@ const styles = StyleSheet.create({
       textStyle: {
         opacity: .93,
         fontSize: 18,
+      },
+      friendsNumber: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
       }
 })
