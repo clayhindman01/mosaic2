@@ -26,7 +26,7 @@ export default function Mosaic({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header navigation={navigation} />
+      <Header navigation={navigation} isBack={true} />
       <View style={styles.mosaic}>
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -42,8 +42,8 @@ export default function Mosaic({ navigation }) {
               style={[
                 styles.image,
                 {
-                  width: parseInt(state.width) * 4.5,
-                  height: parseInt(state.height) * 4.5,
+                  width: 100,
+                  height: 100,
                 },
               ]}
             />

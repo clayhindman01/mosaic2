@@ -21,7 +21,7 @@ export default function UserFeed({ navigation }) {
           showsVerticalScrollIndicator={false}
           style={{ width: "100%", height: "100%" }}
           data={[{ key: "a" }, { key: "b" }, {}, {}, {}, {}, {}]}
-          renderItem={({ item }) => <UserFeedTile />}
+          renderItem={({ item }) => <UserFeedTile navigation={navigation} />}
           keyExtractor={(item) => item.id}
         />
       </View>
