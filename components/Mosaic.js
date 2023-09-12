@@ -8,6 +8,7 @@ import {
   Dimensions,
   Pressable,
   ScrollView,
+  Platform,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import Header from "./Header";
@@ -38,12 +39,12 @@ export default function Mosaic({ navigation }) {
             contentContainerStyle={{ flexGrow: 1 }}
           >
             <Image
-              source={{ uri: require("../assets/background.jpg") }}
+              source={require("../assets/placeholder.jpg")}
               style={[
                 styles.image,
                 {
-                  width: 100,
-                  height: 100,
+                  width: 1000,
+                  height: 1000,
                 },
               ]}
             />
@@ -60,14 +61,14 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignContent: "center",
-    marginTop: 50,
+    // marginTop: 50,
   },
   mosaic: {
     backgroundColor: "black",
     opacity: 0.93,
     width: "97%",
     marginRight: -10,
-    height: "85%",
+    height: Platform.OS === "ios" ? "90%" : "83%",
     borderTopRightRadius: 40,
     borderBottomRightRadius: 40,
     borderBottomLeftRadius: 40,
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    // tintColor: 'rgba(52, 52, 52, 0.8)',
+    // tintColor: "rgba(52, 52, 52, 0.8)",
   },
   accountIcon: {
     opacity: 0.93,
