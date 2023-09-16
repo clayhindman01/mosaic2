@@ -1,9 +1,10 @@
 import { Image } from "react-native"
 
 export const getUser = () => {
-    fetch(`http://10.0.0.68:3000/api/v1/mosaic/users/Clay`)
+    fetch(`http://10.129.143.135:8081/api/v1/mosaic/users/Clay`)
         .then(response => response.json())
-        .then(users => {console.log(users)
+        .then(users => {
+            console.log(users)
             // console.log(users.json)
         })
 }

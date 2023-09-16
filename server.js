@@ -20,7 +20,8 @@ connection.getConnection((err, connection) => {
 
 app.get(base_url + '/users/:userName', (req, res) => {
     connection.getConnection((err, connection) => {
-        connection.query(`SELECT * FROM mosaic.users WHERE user_name = '${req.params.userName}'`, (error, results, fields) => {
+        // connection.query(`SELECT * FROM mosaic.users WHERE user_name = '${req.params.userName}'`, (error, results, fields) => {
+            connection.query(`SELECT * FROM mosaic.users WHERE user_name = 'Clay'`, (error, results, fields) => {
             if (error) throw error;
             res.send(results)
         });

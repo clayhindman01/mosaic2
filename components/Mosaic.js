@@ -9,7 +9,6 @@ import {
   Pressable,
   ScrollView,
 } from "react-native";
-import Icon from "react-native-vector-icons/MaterialIcons";
 import Header from "./Header";
 
 export default function Mosaic({ navigation }) {
@@ -38,7 +37,7 @@ export default function Mosaic({ navigation }) {
             contentContainerStyle={{ flexGrow: 1 }}
           >
             <Image
-              source={{ uri: require("../assets/background.jpg") }}
+              source={require("../assets/placeholder.jpg")}
               style={[
                 styles.image,
                 {

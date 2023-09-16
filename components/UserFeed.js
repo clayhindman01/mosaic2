@@ -15,7 +15,7 @@ import UserFeedTile from "./UserFeedTile";
 export default function UserFeed({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
-      <Header isBack={false} navigation={navigation} />
+      {/* <Header isBack={false} navigation={navigation} /> */}
       <View style={styles.userFeedContainer}>
         <FlatList
           showsVerticalScrollIndicator={false}
@@ -38,14 +38,6 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   userFeedContainer: {
-    backgroundColor: "#1a1919",
-    opacity: 0.97,
-    width: "97%",
-    marginRight: -10,
-    height: Dimensions.get("window").height - 125,
-    borderTopRightRadius: 30,
-    padding: "3%",
-    justifyContent: "center",
-    alignItems: "center",
+    paddingHorizontal: "5%",
   },
 });
