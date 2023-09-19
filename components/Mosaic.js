@@ -10,7 +10,6 @@ import {
   ScrollView,
   Platform,
 } from "react-native";
-import Icon from "react-native-vector-icons/MaterialIcons";
 import Header from "./Header";
 
 export default function Mosaic({ navigation }) {

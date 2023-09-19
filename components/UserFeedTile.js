@@ -13,7 +13,7 @@ export default function UserFeedTile({ navigation }) {
   // const width = Image.resolveAssetSource("../assets/placeholder.jpg").width;
   return (
     <View style={styles.container}>
-      <View style={styles.topContainer}>
+      {/* <View style={styles.topContainer}>
         <View
           style={{
             flexDirection: "row",
@@ -32,7 +32,7 @@ export default function UserFeedTile({ navigation }) {
         </View>
 
         <View style={{ width: 30, height: 30, backgroundColor: "#fed169" }} />
-      </View>
+      </View> */}
       <View style={styles.pictureContainer}>
         <Pressable
           onPress={() => {
@@ -44,8 +44,7 @@ export default function UserFeedTile({ navigation }) {
             style={styles.picture}
           />
         </Pressable>
-      </View>
-      <View style={styles.bottomContainer}>
+        <View style={styles.bottomContainer}>
         <View style={{ flexDirection: "row" }}>
           <Pressable
             onPress={() => {
@@ -54,17 +53,18 @@ export default function UserFeedTile({ navigation }) {
             }}
           >
             {!isLiked ? (
-              <Icon name="hearto" size={25} color="black" style={styles.icon} />
+              <Icon name="hearto" size={28} color="black" style={styles.icon} />
             ) : (
-              <Icon name="heart" size={25} color="red" style={styles.icon} />
+              <Icon name="heart" size={28} color="red" style={styles.icon} />
             )}
           </Pressable>
-          <Text style={{ fontSize: 16, marginRight: 8 }}>{likes}</Text>
+          <Text style={{ fontSize: 18, marginRight: 8 }}>{likes}</Text>
 
-          <Icon name="message1" size={22} color="black" style={styles.icon} />
-          <Text style={{ fontSize: 16 }}>{numComments}</Text>
+          <Icon name="message1" size={25} color="black" style={styles.icon} />
+          <Text style={{ fontSize: 18 }}>{numComments}</Text>
         </View>
-        <Icon name="sharealt" size={22} color="black" style={styles.icon} />
+        <Icon name="sharealt" size={25} color="black" style={styles.icon} />
+      </View>
       </View>
     </View>
   );
@@ -72,13 +72,12 @@ export default function UserFeedTile({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    height: "auto",
-    backgroundColor: "#e7e6f0",
-    opacity: 0.93,
-    borderRadius: 20,
-    paddingVertical: 5,
-    marginBottom: 10,
+    marginBottom: 25,
+    shadowOffset: { width: 1, height: 3 },
+        shadowColor: 'black',
+        shadowOpacity: 0.3,
+        shadowRadius: 1,
+        elevation: 3,
   },
   topContainer: {
     flexDirection: "row",
@@ -96,12 +95,7 @@ const styles = StyleSheet.create({
   picture: {
     height: 500,
     maxWidth: "100%",
-  },
-  pictureContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-    // paddingHorizontal: "2.5%",
+    borderRadius: 20,
   },
   icon: {
     opacity: 0.93,
@@ -111,8 +105,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    width: "100%",
-    paddingTop: 5,
-    paddingHorizontal: "2.5%",
+    width: "85%",
+    backgroundColor: 'white',
+    // borderTopLeftRadius: 20,
+    // borderTopRightRadius: 20, 
+    borderRadius: 20, 
+    padding: "2.5%",
+    marginTop: -53,
+    zIndex: 2,
+    opacity: .5,
+
   },
+  pictureContainer: {
+    justifyContent: "center",
+    alignItems: "center"
+  }
 });

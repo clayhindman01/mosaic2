@@ -22,6 +22,7 @@ export default function App() {
           headerShown: false,
         }}
       >
+        {/* To add: Login, Signup, Comment modal, mosaic tile modal */}
         <Stack.Screen name="userFeed" component={UserFeed} />
         <Stack.Screen name="mosaic" component={Mosaic} />
         <Stack.Screen name="account" component={Account} />
