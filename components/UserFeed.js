@@ -11,19 +11,26 @@ import {
 } from "react-native";
 import Header from "./Header";
 import UserFeedTile from "./UserFeedTile";
+import NavBar from "./NavBar";
 
 export default function UserFeed({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
-      {/* <Header isBack={false} navigation={navigation} /> */}
       <View style={styles.userFeedContainer}>
         <FlatList
           showsVerticalScrollIndicator={false}
           style={{ width: "100%", height: "100%" }}
           data={[{ key: "a" }, { key: "b" }, {}, {}, {}, {}, {}]}
-          renderItem={({ item }) => <UserFeedTile navigation={navigation} />}
+          renderItem={({ item }) => {
+            if (item.key == "a") {
+              return <Header navigation={navigation}></Header>;
+            } else {
+              return <UserFeedTile navigation={navigation} />;
+            }
+          }}
           keyExtractor={(item) => item.id}
         />
+        <NavBar navigation={navigation} />
       </View>
     </SafeAreaView>
   );
@@ -38,6 +45,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   userFeedContainer: {
-    paddingHorizontal: "5%",
+    paddingHorizontal: "3%",
+    height: Dimensions.get("window").height,
   },
 });
