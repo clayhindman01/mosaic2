@@ -48,6 +48,8 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   navbarContainer: {
+    position: 'absolute',
+    bottom: 75,
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
@@ -55,7 +57,6 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,0.9)",
     borderRadius: 100,
     padding: 10,
-    marginTop: Platform.OS === "ios" ? -200 : -80,
     opacity: 0.9,
     shadowOffset: { width: 3, height: 3 },
     shadowColor: "black",

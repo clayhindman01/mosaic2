@@ -11,6 +11,7 @@ import {
   Platform,
 } from "react-native";
 import Header from "./Header";
+import NavBar from "./NavBar";
 
 export default function Mosaic({ navigation }) {
   const [state, setState] = useState([]);
@@ -50,22 +51,24 @@ export default function Mosaic({ navigation }) {
           </ScrollView>
         </ScrollView>
       </View>
+      <NavBar navigation={navigation} />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get("window").width,
+    width: '100%',
+    height: '100%',
     flexDirection: "column",
     justifyContent: "flex-start",
     alignContent: "center",
+    padding: '3%',
   },
   mosaic: {
     backgroundColor: "black",
     opacity: 0.93,
     width: "97%",
-    marginRight: -10,
     height: Platform.OS === "ios" ? "90%" : "83%",
     borderTopRightRadius: 40,
     borderBottomRightRadius: 40,

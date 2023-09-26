@@ -39,13 +39,13 @@ export default function UserFeed({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
+    height: '100%',
     flexDirection: "column",
     justifyContent: "flex-start",
     alignContent: "center",
   },
   userFeedContainer: {
     paddingHorizontal: "3%",
-    height: Dimensions.get("window").height,
+    height: Dimensions.get("screen").height,
   },
 });

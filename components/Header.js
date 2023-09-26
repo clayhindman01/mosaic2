@@ -6,13 +6,11 @@ import {
   Image,
   Text,
   Pressable,
+  Platform,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 export default function Header(props) {
-  const handleAccountIconPress = () => {
-    props.navigation.navigate("account");
-  };
 
   const handleBack = () => {
     props.navigation.pop();
@@ -21,20 +19,18 @@ export default function Header(props) {
   return (
     <View style={styles.iconContainer}>
       {props.isBack ? (
+        <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
         <Pressable onPress={() => handleBack()}>
           <Icon name="arrow-back-ios" size={35} style={styles.accountIcon} />
         </Pressable>
+        {/* <View style={{flex: 1}}> */}
+          <Text style={[styles.MosaicText, {fontSize: 26}]}>Clay Hindman</Text>
+        {/* </View> */}
+        <View style={{width: 20}}></View>
+        </View>
       ) : (
         <Text style={styles.MosaicText}>Mosaic</Text>
       )}
-      <Pressable onPress={() => handleAccountIconPress()}>
-        <Icon
-          name="account-circle"
-          size={65}
-          color="black"
-          style={styles.accountIcon}
-        />
-      </Pressable>
     </View>
   );
 }
@@ -50,9 +46,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     paddingBottom: 15,
-    paddingHorizontal: "2.5%",
   },
   MosaicText: {
+    marginTop: Platform.OS === 'ios'? 10: null,
     fontSize: 30,
     opacity: 0.93,
     fontWeight: "400",

@@ -57,12 +57,12 @@ export default function UserFeedTile({ navigation }) {
                 style={styles.icon}
               />
             </View>
-
             <View style={styles.iconContainer}>
               <View
                 style={{ width: 25, height: 25, backgroundColor: "orange" }}
               />
             </View>
+            
           </View>
           <View style={[styles.iconContainer, { marginRight: 0 }]}>
             <Feather name="send" size={20} color="black" style={styles.icon} />
