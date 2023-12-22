@@ -19,14 +19,10 @@ export default function UserFeed({ navigation }) {
       <View style={styles.userFeedContainer}>
         <FlatList
           showsVerticalScrollIndicator={false}
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: "100%", height: "100%", marginBottom: -42, paddingTop: 15}}
           data={[{ key: "a" }, { key: "b" }, {}, {}, {}, {}, {}]}
           renderItem={({ item }) => {
-            if (item.key == "a") {
-              return <Header navigation={navigation}></Header>;
-            } else {
-              return <UserFeedTile navigation={navigation} />;
-            }
+            return <UserFeedTile navigation={navigation} />;
           }}
           keyExtractor={(item) => item.id}
         />
@@ -43,9 +39,10 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignContent: "center",
+    backgroundColor: "#dbe9e9"
   },
   userFeedContainer: {
-    paddingHorizontal: "3%",
     height: Dimensions.get("screen").height,
+    backgroundColor: "#f3fdfe",
   },
 });

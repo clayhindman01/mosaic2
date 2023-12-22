@@ -23,18 +23,18 @@ export default function NavBar({ navigation }) {
     <View style={styles.container}>
       <View style={styles.navbarContainer}>
         <Pressable>
-          <View style={styles.iconTextContainer}>
-            <AntDesign name="home" size={30} />
+          <View style={[styles.iconTextContainer, styles.activeTab]}>
+            <AntDesign name="home" size={35} style={styles.activeIcon}/>
           </View>
         </Pressable>
         <Pressable onPress={() => handleMosaicPress()}>
-          <View style={styles.iconTextContainer}>
-            <AntDesign name="camerao" size={30} />
+          <View style={[styles.iconTextContainer, styles.iconTextContainerCamera]}>
+            <AntDesign name="camerao" size={35} style={styles.inactiveIcon} />
           </View>
         </Pressable>
         <Pressable onPress={() => handleAccountIconPress()}>
           <View style={styles.iconTextContainer}>
-            <MaterialCommunityIcons name="account-outline" size={30} />
+            <MaterialCommunityIcons name="account-outline" size={35} style={styles.inactiveIcon} />
           </View>
         </Pressable>
       </View>
@@ -43,21 +43,25 @@ export default function NavBar({ navigation }) {
 }
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
-    alignItems: "center",
     width: "100%",
+    position: 'absolute',
+    bottom: 52,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   navbarContainer: {
-    position: 'absolute',
-    bottom: 75,
+    
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    width: "85%",
-    backgroundColor: "rgba(255,255,255,0.9)",
-    borderRadius: 100,
-    padding: 10,
-    opacity: 0.9,
+    width: "98%",
+    backgroundColor: '#00b1b7',
+    // borderTopEndRadius: 40,
+    // borderTopStartRadius: 40,
+    borderRadius: 40,
+    paddingTop: 10,
+    paddingBottom: 20,
     shadowOffset: { width: 3, height: 3 },
     shadowColor: "black",
     shadowOpacity: 0.2,
@@ -74,13 +78,32 @@ const styles = StyleSheet.create({
   iconTextContainer: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "white",
-    padding: "7.5%",
+    padding: "10%",
     paddingHorizontal: "6%",
     borderRadius: 12,
+  },
+  iconTextContainerCamera: {
+    backgroundColor: '#32ceca',
+    padding: "10%",
+    height: 70,
+    width: 70,
+    borderRadius: 200,
+    opacity: 1,
+    shadowOffset: { width: 3, height: 2 },
+    shadowColor: "black",
+    shadowOpacity: 0.2,
+    elevation: 0.5,
+  },
+  activeTab: {
     shadowOffset: { width: 1, height: 1 },
     shadowColor: "black",
     shadowOpacity: 0.2,
     elevation: 0.5,
   },
+  activeIcon: {
+    color: "white"
+  },
+  inactiveIcon: {
+    color: 'lightgray'
+  }
 });

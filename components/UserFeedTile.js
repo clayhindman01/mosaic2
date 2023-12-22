@@ -75,7 +75,8 @@ export default function UserFeedTile({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 25,
+    marginBottom: 40,
+    paddingHorizontal: '3%',
     shadowOffset: { width: 1, height: 3 },
     shadowColor: "black",
     shadowOpacity: 0.3,
