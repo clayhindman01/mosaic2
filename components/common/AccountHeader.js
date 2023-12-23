@@ -8,22 +8,16 @@ import {
   Pressable,
   Platform,
 } from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import Feather from "react-native-vector-icons/Feather";
 
-export default function Header(props) {
+export default function AccountHeader(props) {
   const handleBack = () => {
     props.navigation.pop();
   };
 
   return (
     <View style={styles.iconContainer}>
-      <View style={{ flexDirection: "row" }}>
-        <Image
-          source={require("../assets/testProfile.jpg")}
-          style={styles.accountPicture}
-        />
-        <Text style={styles.MosaicText}>Mosaic</Text>
-      </View>
+      <Text style={styles.MosaicText}>@clayhindman01</Text>
 
       <View
         style={{
@@ -31,7 +25,7 @@ export default function Header(props) {
           flexDirection: "row",
         }}
       >
-        <Ionicons name="notifications-outline" color="white" size={30} />
+        <Feather name="menu" color="white" size={30} />
       </View>
     </View>
   );
@@ -51,7 +45,6 @@ const styles = StyleSheet.create({
     opacity: 0.93,
     fontWeight: "400",
     color: "white",
-    paddingLeft: 10,
   },
   accountPicture: {
     borderRadius: 100,

@@ -7,6 +7,7 @@ import Account from "./components/Account";
 import UserFeed from "./components/UserFeed";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import NavBar from "./components/NavBar";
 
 export default function App() {
   useEffect(() => {
@@ -20,10 +21,10 @@ export default function App() {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
+          // animation,
         }}
       >
-        {/* To add: Login, Signup, Comment modal, mosaic tile modal */}
-        <Stack.Screen name="userFeed" component={UserFeed} />
+        <Stack.Screen name="home" component={UserFeed} />
         <Stack.Screen name="mosaic" component={Mosaic} />
         <Stack.Screen name="account" component={Account} />
       </Stack.Navigator>
@@ -34,8 +35,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ecf6f7",
-    alignItems: "center",
-    justifyContent: "center",
   },
 });

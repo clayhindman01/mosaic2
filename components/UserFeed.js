@@ -1,48 +1,45 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  SafeAreaView,
-  Dimensions,
-  Pressable,
-  FlatList,
-} from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import Header from "./Header";
 import UserFeedTile from "./UserFeedTile";
 import NavBar from "./NavBar";
 
 export default function UserFeed({ navigation }) {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.userFeedContainer}>
+        <Header></Header>
         <FlatList
           showsVerticalScrollIndicator={false}
-          style={{ width: "100%", height: "100%", marginBottom: -42, paddingTop: 15}}
+          style={{
+            flex: 1,
+            marginBottom: -35,
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+            backgroundColor: "#2f2f2f",
+            padding: 15,
+          }}
           data={[{ key: "a" }, { key: "b" }, {}, {}, {}, {}, {}]}
           renderItem={({ item }) => {
             return <UserFeedTile navigation={navigation} />;
           }}
           keyExtractor={(item) => item.id}
         />
-        <NavBar navigation={navigation} />
+        <NavBar navigation={navigation} activeTab="home" />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get("window").width,
-    height: '100%',
     flexDirection: "column",
-    justifyContent: "flex-start",
-    alignContent: "center",
-    backgroundColor: "#dbe9e9"
+    backgroundColor: "red",
+    flex: 1,
   },
   userFeedContainer: {
-    height: Dimensions.get("screen").height,
-    backgroundColor: "#f3fdfe",
+    flex: 1,
+    backgroundColor: "#0a0a0a",
+    justifyContent: "space-between",
   },
 });

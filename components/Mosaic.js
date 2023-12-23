@@ -58,12 +58,12 @@ export default function Mosaic({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
     flexDirection: "column",
     justifyContent: "flex-start",
     alignContent: "center",
-    padding: '3%',
+    padding: "3%",
   },
   mosaic: {
     backgroundColor: "black",
