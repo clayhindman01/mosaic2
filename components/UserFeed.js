@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 import Header from "./Header";
 import UserFeedTile from "./UserFeedTile";
@@ -16,7 +16,7 @@ export default function UserFeed({ navigation }) {
             marginBottom: -35,
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
-            backgroundColor: "#2f2f2f",
+            backgroundColor: "#1a1a1a",
             padding: 15,
           }}
           data={[{ key: "a" }, { key: "b" }, {}, {}, {}, {}, {}]}

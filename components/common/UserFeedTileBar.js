@@ -4,16 +4,13 @@ import Icon from "react-native-vector-icons/AntDesign";
 import Feather from "react-native-vector-icons/Feather";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 
-export default function UserFeedTileBar() {
-  const [isLiked, setIsLiked] = useState(false);
-  const [likes, setLikes] = useState(Math.floor(Math.random() * 100));
+export default function UserFeedTileBar({ isLiked, setIsLiked }) {
   return (
     <View style={styles.bottomContainer}>
       {/* Likes */}
       <Pressable
         onPress={() => {
           setIsLiked(!isLiked);
-          setLikes(isLiked ? likes - 1 : likes + 1);
         }}
       >
         <View style={styles.iconContainer}>
@@ -35,7 +32,7 @@ export default function UserFeedTileBar() {
         />
       </View>
       <View style={styles.iconContainer}>
-        <Feather name="send" size={30} color="white" style={styles.icon} />
+        <Feather name="grid" size={30} color="white" style={styles.icon} />
       </View>
     </View>
   );
@@ -55,8 +52,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#00b1b7",
     borderBottomLeftRadius: 30,
     borderTopLeftRadius: 30,
-    paddingTop: "5%",
-    paddingBottom: "5%",
+    paddingTop: "7%",
+    paddingBottom: "7%",
     zIndex: 2,
   },
   pictureContainer: {

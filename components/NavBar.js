@@ -31,7 +31,7 @@ export default function NavBar({ navigation, activeTab }) {
           </View>
         </Pressable>
 
-        <Pressable>
+        <Pressable onPress={() => navigateToTab("search")}>
           <View style={[styles.iconTextContainer]}>
             <AntDesign
               name="search1"
@@ -43,7 +43,7 @@ export default function NavBar({ navigation, activeTab }) {
           </View>
         </Pressable>
 
-        <Pressable onPress={() => navigateToTab("mosaic")}>
+        <Pressable onPress={() => navigateToTab("camera")}>
           <View
             style={[styles.iconTextContainer, styles.iconTextContainerCamera]}
           >
@@ -57,7 +57,7 @@ export default function NavBar({ navigation, activeTab }) {
           </View>
         </Pressable>
 
-        <Pressable>
+        <Pressable onPress={() => navigateToTab("mosaic")}>
           <View style={[styles.iconTextContainer]}>
             <Feather
               name="grid"
