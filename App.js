@@ -11,6 +11,7 @@ import NavBar from "./components/NavBar";
 import Search from "./components/Search";
 import CameraScreen from "./components/CameraScreen";
 import { PictureProvider } from "./api/context";
+import Login from "./components/pages/Login";
 
 export default function App() {
   useEffect(() => {
@@ -28,6 +29,7 @@ export default function App() {
             animation: "none",
           }}
         >
+          <Stack.Screen name ="login" component={Login} />
           <Stack.Screen name="home" component={UserFeed} />
           <Stack.Screen name="mosaic" component={Mosaic} />
           <Stack.Screen name="account" component={Account} />
