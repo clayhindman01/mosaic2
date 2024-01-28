@@ -1,32 +1,176 @@
 import React from 'react'
-import { Button, StyleSheet, TextInput, View } from 'react-native'
+import { StyleSheet, TextInput, Pressable, Image, View, Text } from 'react-native'
+import { loginUser, getUserDocument } from '../../api/api_utils'
 
-export default function Login({ navigation }) {
+export default function Login(props) {
 
-    const handleClick = () => {
-        navigation.navigate('home')
-    }
+  const {userData, setUserData, userDocument, setUserDocument} = props.route.params;
+  const [state, setState] = React.useState({
+    email: '',
+    password: ''
+  })
+
+  const updateState = (key, value) => {
+    setState({
+      ...state,
+      [key]: value
+    })
+  }
+
+  const login = () => {
+    loginUser(state.email, state.password).then(user => {
+      if (user !== undefined) {
+        setUserData(user)
+        callUserDocument();
+      }
+    })
+  }
+
+  const callUserDocument = async () => {
+    await getUserDocument().then((data) => {
+        setUserDocument(data)
+    })
+    props.navigation.navigate('home')
+    setState({
+      email: '',
+      password: ''
+    })
+  }
+
   return (
     <View style={styles.container}>
-        <TextInput placeholder='Username' style={styles.input} placeholderTextColor={"lightgray"} />
-        <TextInput placeholder='Password' secureTextEntry={true} style={styles.input} placeholderTextColor={"lightgray"}/>
-        <Button title="Login" onPress={handleClick} style={styles.button}></Button>
+        {/* <Image source={require('../assets/images/logo.png')} style={styles.logo} /> */}
+        <View style={[styles.textInputContainer, styles.textInputContainerEmail]}>
+          <TextInput 
+            placeholder="Email" 
+            value={state.email} 
+            style={styles.textInput} 
+            onChangeText={text => updateState('email', text)} 
+          />
+        </View>
+        
+        <View style={styles.textInputContainer}>
+          <TextInput 
+            placeholder="Password" 
+            value={state.password} 
+            secureTextEntry={true}
+            style={styles.textInput} 
+            onChangeText={text => updateState('password', text)}
+          />
+        </View>
+        
+        <View style={{flexDirection: 'row', width: '80%', justifyContent: 'center'}}>
+          <Pressable onPress={() => login()} style={styles.loginPressable}>
+              <Text style={styles.buttonText}>Sign in</Text>
+          </Pressable>
+        </View>
+        
+
+        <View style={{flexDirection: 'row', justifyContent:'space-around', width: '80%'}}>
+          <Text style={{fontSize: 16}}>- Or log in with -</Text>
+        </View>
+
+        <View style={{flexDirection: 'row', justifyContent:'space-around', width: '80%', marginBottom: '16%'}}>
+          <View style={styles.socialMediaIcon}>
+            {/* <Image
+              style={{width: 30, height: 30, borderRadius: 100, padding: 10}}
+              source={require('../assets/images/icons8-google-48.png')}
+            /> */}
+          </View>
+          <View style={styles.socialMediaIcon}>
+            {/* <Image
+              style={{width: 30, height: 30, borderRadius: 100, padding: 10}}
+              source={require('../assets/images/icons8-facebook-48.png')}
+            /> */}
+          </View>
+          
+          <View style={styles.socialMediaIcon}>
+            {/* <Image
+              style={{width: 30, height: 30, borderRadius: 100, padding: 10}}
+              source={require('../assets/images/icons8-twitter-48.png')}
+            /> */}
+          </View>
+        </View>
+
+        <View style={{flexDirection: 'row'}}> 
+          <Text style={{fontSize: 16}}>Don't have an account?</Text>
+          <Pressable onPress={() => props.navigation.navigate('Signup')}> 
+            <Text style={{color: '#1bec0d', fontSize: 16}}> Sign up</Text>
+          </Pressable>
+        </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: Platform.OS === "ios" ? 50 : 20,
         flex: 1,
-        backgroundColor: "#0a0a0a",
+        alignItems: 'center',
+        justifyContent: 'space-evenly'
+    },
+    textInput: {
+        paddingBottom: 15,
+        paddingLeft: 10,
+        opacity: 0.75,
+        width: "100%",
+        color: '#2d2d2d',
+        fontSize: 16,
+        marginBottom: '-5%',   
+        fontWeight: 'bold',
+    },
+    logo: {
+        marginTop: '16%',
+        width: 300,
+        height: 100
+    },
+    loginPressable: {
+        paddingHorizontal: 20,
+        width: "100%",
+        height: 50,
+        paddingVertical: 10,
+        backgroundColor: "#1bec0d",
+        opacity: 0.85,
+        borderRadius: 10,
         justifyContent: 'center',
-        alignItems: "center"
+        alignItems: 'center',
+        marginTop: '-5%',
+        shadowOffset: { width: 1, height: 2 },
+        shadowColor: 'black',
+        shadowOpacity: 0.2,
+        elevation: 1,
     },
-    input: {
-        color: "white"
+    buttonText: {
+        // color: '#fff',
+        color: '#2a2c33',
+        fontWeight: "600",
+        fontSize: 20,
     },
-    button: {
-        backgroundColor: "#00b1b7",
+    socialMediaIcon: {
+      backgroundColor: 'white',
+      width: 85,
+      height: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 8,
+      // boxShadow: '5px 5px red',
+      shadowOffset: { width: 1, height: 1 },
+      shadowColor: 'black',
+      shadowOpacity: 0.2,
+      elevation: 1,
+    },
+    textInputContainer: {
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      width: '80%',
+      height: 50,
+      shadowOffset: { width: 1, height: 2 },
+      shadowColor: 'black',
+      shadowOpacity: 0.2,
+      elevation: 1,
+      borderRadius: 10,
+    },
+    textInputContainerEmail: {
+      marginBottom: '-7%'
     }
 })
