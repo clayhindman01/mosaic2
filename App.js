@@ -12,12 +12,12 @@ import Search from "./components/Search";
 import CameraScreen from "./components/CameraScreen";
 import { PictureProvider } from "./api/context";
 import Login from "./components/pages/Login";
+import { searchUser } from "./api/api_utils";
 
 export default function App() {
   const [userData, setUserData] = React.useState({})
   const [userDocument, setUserDocument] = React.useState({})
   const Stack = createNativeStackNavigator();
-
   return (
     <PictureProvider>
       <NavigationContainer>
@@ -27,7 +27,7 @@ export default function App() {
             animation: "none",
           }}
         >
-          <Stack.Screen 
+          {/* <Stack.Screen 
             name="Login" 
             component={Login}
             options={{ headerShown: false, gestureEnabled: false }} 
@@ -36,11 +36,14 @@ export default function App() {
               setUserData: setUserData,
               setUserDocument: setUserDocument
             }} 
-          />
+          /> */}
           <Stack.Screen name="home" component={UserFeed} />
           <Stack.Screen name="mosaic" component={Mosaic} />
           <Stack.Screen name="account" component={Account} />
-          <Stack.Screen name="search" component={Search} />
+          <Stack.Screen 
+            name="search" 
+            component={Search}
+          />
           <Stack.Screen name="camera" component={CameraScreen} />
         </Stack.Navigator>
       </NavigationContainer>

@@ -6,9 +6,7 @@ import { PictureContext } from "../api/context";
 export default function UserFeedTile({ navigation }) {
   const picture = useContext(PictureContext);
   const [isLiked, setIsLiked] = useState(false);
-
-  console.log("picture", picture);
-
+  
   let lastPress = 0;
   const onDoublePress = () => {
     const time = new Date().getTime();

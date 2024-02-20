@@ -1,6 +1,6 @@
-// import mysql from "mysql2/promise"
-var mysql = require("mysql")
-var express = require("express")
+const mysql = require("mysql");
+const express = require("express");
+const bodyParser = require("body-parser");
 
 const connection = mysql.createPool({
     host: 'localhost',
@@ -12,18 +12,41 @@ const connection = mysql.createPool({
 
 const app = express()
 const base_url = "/api/v1/mosaic"
+const jsonParser = bodyParser.json();
+
+app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
 
 connection.getConnection((err, connection) => {
     if (err) throw console.error(err)
     console.log("Connected")
 })
 
+app.post(base_url + "/users", jsonParser, (req, res) => {
+    connection.getConnection((err, connection) => {
+        console.log(req.body)
+        connection.query(
+            `INSERT INTO mosaic.users (user_name, password, userId) VALUES ('${req.body.user_name}', '${req.body.password}', '${req.body.userId}')`,
+            (error, results) => {
+                if (error) throw error;
+                res.send(results)
+            }
+        )
+    })
+}) 
+
+
 app.get(base_url + '/users/:userName', (req, res) => {
     connection.getConnection((err, connection) => {
-        // connection.query(`SELECT * FROM mosaic.users WHERE user_name = '${req.params.userName}'`, (error, results, fields) => {
-            connection.query(`SELECT * FROM mosaic.users WHERE user_name = 'Clay'`, (error, results, fields) => {
+        connection.query(`SELECT * FROM mosaic.users WHERE user_name LIKE '%${req.params.userName}%'`, (error, results, fields) => {
             if (error) throw error;
             res.send(results)
+            console.log(results)
         });
     });
 });

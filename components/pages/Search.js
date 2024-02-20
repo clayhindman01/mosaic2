@@ -3,35 +3,40 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
-  SafeAreaView,
-  Dimensions,
-  Pressable,
-  ScrollView,
   Platform,
   TextInput,
 } from "react-native";
-import Header from "../Header";
 import NavBar from "../NavBar";
+import { searchUser } from "../../api/api_utils";
 
-export default function Search({ navigation }) {
-  const [search, setSearch] = useState();
+export default function Search({ navigation, route }) {
+  const [search, setSearch] = useState("");
+  const {searchResults, setSearchResults} = route.params;
+
+  console.log(searchResults)
+
+  const ExternalTextInputContainer = () =>{
+    return(
+      <TextInput
+          style={styles.searchInput}
+          onChangeText={text => setSearch(text)}
+          value={search}
+          placeholder="Search"
+          placeholderTextColor='gray'
+      />
+    )
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.searchBar}>
-        <TextInput
-          style={styles.searchInput}
-          onChangeText={setSearch}
-          value={search}
-          placeholder="Search"
-          placeholderTextColor="gray"
-        ></TextInput>
+        {ExternalTextInputContainer()}
       </View>
       <View style={styles.searchResults}>
         <Text style={{ color: "gray", textAlign: "center", fontSize: 20 }}>
-          Mosaic is best enjoyed with others. Search for friends to see their
-          tiles!
+          {/* Mosaic is best enjoyed with others. Search for friends to see their
+          tiles! */}
+        {searchResults}  
         </Text>
       </View>
       <NavBar navigation={navigation} activeTab="search" />

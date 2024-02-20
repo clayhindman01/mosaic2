@@ -1,6 +1,5 @@
 import React from 'react'
 import { StyleSheet, TextInput, Pressable, Image, View, Text } from 'react-native'
-import { loginUser, getUserDocument } from '../../api/api_utils'
 
 export default function Login(props) {
 
@@ -18,18 +17,10 @@ export default function Login(props) {
   }
 
   const login = () => {
-    loginUser(state.email, state.password).then(user => {
-      if (user !== undefined) {
-        setUserData(user)
-        callUserDocument();
-      }
-    })
+    callUserDocument();
   }
 
-  const callUserDocument = async () => {
-    await getUserDocument().then((data) => {
-        setUserDocument(data)
-    })
+  const callUserDocument = () => {
     props.navigation.navigate('home')
     setState({
       email: '',
