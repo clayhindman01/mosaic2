@@ -19,7 +19,7 @@ export default function Header(props) {
     <View style={styles.iconContainer}>
       <View style={{ flexDirection: "row" }}>
         <Image
-          source={require("../assets/testProfile.jpg")}
+          source={require("../../assets/testProfile.jpg")}
           style={styles.accountPicture}
         />
         <Text style={styles.MosaicText}>Mosaic</Text>

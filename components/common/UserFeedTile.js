@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { View, StyleSheet, Image, Text, Pressable } from "react-native";
-import UserFeedTileBar from "./common/UserFeedTileBar";
-import { PictureContext } from "../api/context";
+import UserFeedTileBar from "./UserFeedTileBar";
+import { PictureContext } from "../../api/context";
 
 export default function UserFeedTile({ navigation }) {
   const picture = useContext(PictureContext);
@@ -28,13 +28,13 @@ export default function UserFeedTile({ navigation }) {
       >
         <View style={styles.accountPictureContainer}>
           <Image
-            source={require("../assets/testProfile.jpg")}
+            source={require("../../assets/testProfile.jpg")}
             style={styles.accountPicture}
           />
         </View>
 
         <Image
-          source={require("../assets/placeholder.jpg")}
+          source={require("../../assets/placeholder.jpg")}
           style={styles.picture}
         />
         <UserFeedTileBar isLiked={isLiked} setIsLiked={setIsLiked} />

@@ -8,8 +8,8 @@ import {
   Pressable,
   ScrollView,
 } from "react-native";
-import Header from "../Header";
-import NavBar from "../NavBar";
+import Header from "../common/Header";
+import NavBar from "../common/NavBar";
 import AccountHeader from "../common/AccountHeader";
 
 export default function Account({ navigation }) {
@@ -32,7 +32,7 @@ export default function Account({ navigation }) {
         <ScrollView>
           <View style={styles.accountPictureContainer}>
             <Image
-              source={require("../assets/testProfile.jpg")}
+              source={require("../../assets/testProfile.jpg")}
               style={styles.accountPicture}
             />
             <View
@@ -97,7 +97,7 @@ export default function Account({ navigation }) {
 
               <View style={styles.tile}>
                 <Image
-                  source={require(".././assets/placeholder.jpg")}
+                  source={require("../../assets/placeholder.jpg")}
                   style={styles.picture}
                 />
               </View>
@@ -122,14 +122,14 @@ export default function Account({ navigation }) {
 
               <View style={styles.tile}>
                 <Image
-                  source={require("../../../assets/placeholder.jpg")}
+                  source={require("../../assets/placeholder.jpg")}
                   style={styles.picture}
                 />
               </View>
 
               <View style={styles.tile}>
                 <Image
-                  source={require("../assets/placeholder.jpg")}
+                  source={require("../../assets/placeholder.jpg")}
                   style={styles.picture}
                 />
               </View>

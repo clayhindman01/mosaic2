@@ -10,17 +10,17 @@ import {
   ScrollView,
   Platform,
 } from "react-native";
-import Header from "../Header";
-import NavBar from "../NavBar";
+import Header from "../common/Header";
+import NavBar from "../common/NavBar";
 
 export default function Mosaic({ navigation }) {
   const [state, setState] = useState([]);
 
   useEffect(() => {
     setState({
-      height: Image.resolveAssetSource(require("../assets/testProfile.jpg"))
+      height: Image.resolveAssetSource(require("../../assets/testProfile.jpg"))
         .height,
-      width: Image.resolveAssetSource(require("../assets/testProfile.jpg"))
+      width: Image.resolveAssetSource(require("../../assets/testProfile.jpg"))
         .width,
     });
   }, []);
@@ -39,7 +39,7 @@ export default function Mosaic({ navigation }) {
             contentContainerStyle={{ flexGrow: 1 }}
           >
             <Image
-              source={require("../assets/placeholder.jpg")}
+              source={require("../../assets/placeholder.jpg")}
               style={[
                 styles.image,
                 {

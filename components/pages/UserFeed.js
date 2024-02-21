@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
-import Header from "../Header";
-import UserFeedTile from "../UserFeedTile";
-import NavBar from "../NavBar";
+import Header from "../common/Header";
+import UserFeedTile from "../common/UserFeedTile";
+import NavBar from "../common/NavBar";
 
 export default function UserFeed({ navigation }) {
   return (

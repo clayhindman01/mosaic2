@@ -1,18 +1,14 @@
 import React from "react";
-import { StatusBar } from "expo-status-bar";
-import { createContext, useEffect, useState } from "react";
-import { StyleSheet, Text, SafeAreaView } from "react-native";
-import Mosaic from "./components/Mosaic";
-import Account from "./components/Account";
-import UserFeed from "./components/UserFeed";
+import { StyleSheet } from "react-native";
+import Mosaic from "./components/pages/Mosaic";
+import Account from "./components/pages/Account";
+import UserFeed from "./components/pages/UserFeed";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import NavBar from "./components/NavBar";
-import Search from "./components/Search";
-import CameraScreen from "./components/CameraScreen";
+import Search from "./components/pages/Search";
+import CameraScreen from "./components/pages/CameraScreen";
 import { PictureProvider } from "./api/context";
 import Login from "./components/pages/Login";
-import { searchUser } from "./api/api_utils";
 
 export default function App() {
   const [userData, setUserData] = React.useState({})

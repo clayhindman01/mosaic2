@@ -3,41 +3,67 @@ import {
   View,
   Text,
   StyleSheet,
+  Image,
+  SafeAreaView,
+  Dimensions,
+  Pressable,
+  ScrollView,
   Platform,
   TextInput,
 } from "react-native";
-import NavBar from "../NavBar";
+import Header from "../common/Header";
+import NavBar from "../common/NavBar";
 import { searchUser } from "../../api/api_utils";
 
-export default function Search({ navigation, route }) {
+export default function Search({ navigation }) {
   const [search, setSearch] = useState("");
-  const {searchResults, setSearchResults} = route.params;
+  const [searchResults, setSearchResults] = useState(undefined);
 
-  console.log(searchResults)
 
-  const ExternalTextInputContainer = () =>{
-    return(
-      <TextInput
-          style={styles.searchInput}
-          onChangeText={text => setSearch(text)}
-          value={search}
-          placeholder="Search"
-          placeholderTextColor='gray'
-      />
-    )
-  }
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      searchUser(search, setSearchResults)
+    }, 150)
+    return () => clearTimeout(delayDebounceFn)
+  }, [search])
+
+  useEffect(() => {
+    console.log("seachResults", searchResults)
+  }, [searchResults])
 
   return (
     <View style={styles.container}>
       <View style={styles.searchBar}>
-        {ExternalTextInputContainer()}
+        <TextInput
+          style={styles.searchInput}
+          onChangeText={text => {
+            setSearch(text)
+          }}
+          value={search}
+          placeholder="Search"
+          placeholderTextColor="gray"
+        ></TextInput>
       </View>
       <View style={styles.searchResults}>
-        <Text style={{ color: "gray", textAlign: "center", fontSize: 20 }}>
-          {/* Mosaic is best enjoyed with others. Search for friends to see their
-          tiles! */}
-        {searchResults}  
-        </Text>
+        
+          {searchResults !== undefined? 
+            searchResults.map((item) => (
+              <View style={styles.noSearch}>
+                <Text style={{ color: "gray", textAlign: "center", fontSize: 20 }}>{item.user_name}</Text>
+              </View>
+            )): (
+              <Text style={{ color: "gray", textAlign: "center", fontSize: 20 }}>
+                Mosaic is best enjoyed with others. Search for friends to see their
+                tiles!
+              </Text>
+            )
+          }
+          {() => {
+            for (item in searchResults) {
+              console.log(item)
+              return <Text>{item.user_name}</Text>
+            }
+          }}
       </View>
       <NavBar navigation={navigation} activeTab="search" />
     </View>
@@ -55,6 +81,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 30,
+  },
+  noSearch: {
+    
   },
   searchBar: {
     margin: 10,
