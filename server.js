@@ -31,7 +31,7 @@ app.post(base_url + "/users", jsonParser, (req, res) => {
     connection.getConnection((err, connection) => {
         console.log(req.body)
         connection.query(
-            `INSERT INTO mosaic.users (user_name, password, userId) VALUES ('${req.body.user_name}', '${req.body.password}', '${req.body.userId}')`,
+            `INSERT INTO mosaic.users (userId, email, createdAt) VALUES ('${req.body.userId}', '${req.body.email}', '${req.body.createdAt}')`,
             (error, results) => {
                 if (error) throw error;
                 res.send(results)
@@ -39,7 +39,6 @@ app.post(base_url + "/users", jsonParser, (req, res) => {
         )
     })
 }) 
-
 
 app.get(base_url + '/users/:userName', (req, res) => {
     connection.getConnection((err, connection) => {
@@ -67,30 +66,6 @@ app.get(base_url + "/mosaics/:mosaicId", (req, res) => {
         (error, results, fields) => {
             if (error) throw error;
             res.send(results)
-        })
-    })
-})
-
-// TODO: Encrypt password
-app.get(base_url + '/users/loginUser/:user'), (req, res) => {
-    const { userName, password } = req.params.user;
-    connection.getConnection((err, connection) => {
-        connection.query(`SELECT * FROM mosaic.users WHERE user_name = '${userName}' AND password = '${password}'`),
-        (error, results, fields) => {
-            if (error) throw error;
-
-            // TODO: Create context to store user in.
-            res.send(results)
-        }
-    })
-}
-
-app.get(base_url + "/users/createUser/:user", (req, res) => {
-    connection.getConnection((err, connection) => {
-        connection.query(`INSERT INTO mosaic.users ('user_name', 'password') VALUES('${req.params.user.userName}', '${req.params.user.password}')`,
-        (error, results, fields) => {
-            if (error) throw error;
-            res.set(results)
         })
     })
 })

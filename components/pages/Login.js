@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, TextInput, Pressable, Image, View, Text } from 'react-native'
+import { registerFirebaseUser } from '../../api/api_utils';
 
 export default function Login(props) {
 
@@ -51,7 +52,7 @@ export default function Login(props) {
         </View>
         
         <View style={{flexDirection: 'row', width: '80%', justifyContent: 'center'}}>
-          <Pressable onPress={() => login()} style={styles.loginPressable}>
+          <Pressable onPress={() => registerFirebaseUser(state.email, state.password)} style={styles.loginPressable}>
               <Text style={styles.buttonText}>Sign in</Text>
           </Pressable>
         </View>
