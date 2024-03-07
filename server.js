@@ -3,11 +3,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const connection = mysql.createPool({
-    host: 'localhost',
-    // port: '3306',
-    user: 'root',
-    password: 'password',
-    database: 'mosaic'
+    host: 'mosaic-mysql-server.mysql.database.azure.com',
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: 'mosaic-dev-db',
 })
 
 const app = express()
@@ -27,11 +26,11 @@ connection.getConnection((err, connection) => {
     console.log("Connected")
 })
 
-app.post(base_url + "/users", jsonParser, (req, res) => {
+app.post(base_url + "/addUser", jsonParser, (req, res) => {
     connection.getConnection((err, connection) => {
         console.log(req.body)
         connection.query(
-            `INSERT INTO mosaic.users (userId, email, createdAt) VALUES ('${req.body.userId}', '${req.body.email}', '${req.body.createdAt}')`,
+            `INSERT INTO users (user_id, user_email, user_name) VALUES ('${req.body.user_id}', '${req.body.user_email}', '${req.body.user_name}')`,
             (error, results) => {
                 if (error) throw error;
                 res.send(results)
@@ -40,15 +39,25 @@ app.post(base_url + "/users", jsonParser, (req, res) => {
     })
 }) 
 
-app.get(base_url + '/users/:userName', (req, res) => {
+app.get(base_url + '/searchUser/:user_name', (req, res) => {
     connection.getConnection((err, connection) => {
-        connection.query(`SELECT * FROM mosaic.users WHERE user_name LIKE '%${req.params.userName}%'`, (error, results, fields) => {
+        connection.query(`SELECT * FROM users WHERE user_name LIKE '%${req.params.user_name}%'`, (error, results, fields) => {
             if (error) throw error;
             res.send(results)
             console.log(results)
         });
     });
 });
+
+app.get(base_url + "/getUser", jsonParser, (req, res) => {
+    connection.getConnection((err, connection) => {
+        connection.query(`SELECT * FROM users WHERE user_name='${req.body.user_name}'`, (error, results, fields) => {
+            if (error) throw error;
+            res.send(results)
+            console.log(results)
+        })
+    })
+})
 
 app.get(base_url + "/tile/:tileId", (req, res) => {
     connection.getConnection((err, connection) => {

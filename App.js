@@ -23,7 +23,7 @@ export default function App() {
             animation: "none",
           }}
         >
-          <Stack.Screen 
+          {/* <Stack.Screen 
             name="Login" 
             component={Login}
             options={{ headerShown: false, gestureEnabled: false }} 
@@ -32,7 +32,7 @@ export default function App() {
               setUserData: setUserData,
               setUserDocument: setUserDocument
             }} 
-          />
+          /> */}
           <Stack.Screen name="home" component={UserFeed} />
           <Stack.Screen name="mosaic" component={Mosaic} />
           <Stack.Screen name="account" component={Account} />
