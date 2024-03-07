@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import { StyleSheet, TextInput, Pressable, Image, View, Text } from 'react-native'
 import { loginUser, registerFirebaseUser } from '../../api/api_utils';
 
-export default function Login(props) {
+export default function Signup(props) {
 
   const [state, setState] = useState({
     email: '',
-    password: ''
+    password: '',
+    username: ''
   })
   const [showPassword, setShowPassword] = useState(false)
 
@@ -17,14 +18,14 @@ export default function Login(props) {
     })
   }
 
-  const login = () => {
-    loginUser(state.email, state.password, props.navigation)    
+  const signup = () => {
+    registerFirebaseUser(state, props.navigation)    
   }
 
   return (
     <View style={styles.container}>
-        <Text style={{ fontSize: 40, color: "white" }}>Mosaic</Text>
-        <View style={{ height: '15%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 40, color: "white" }}>Create an Account</Text>
+        <View style={{ height: '25%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <View style={styles.textInputContainer}>
             <TextInput 
               placeholder="Email" 
@@ -32,6 +33,16 @@ export default function Login(props) {
               style={styles.textInput} 
               placeholderTextColor="lightgray"
               onChangeText={text => updateState('email', text)} 
+            />
+          </View>
+          
+          <View style={styles.textInputContainer}>
+            <TextInput 
+              placeholder="Username" 
+              value={state.username} 
+              placeholderTextColor="lightgray"
+              style={styles.textInput} 
+              onChangeText={text => updateState('username', text)}
             />
           </View>
           
@@ -48,15 +59,8 @@ export default function Login(props) {
         </View>
         
         <View style={{flexDirection: 'row', width: '80%', justifyContent: 'center'}}>
-          <Pressable onPress={() => login()} style={styles.loginPressable}>
-              <Text style={styles.buttonText}>Sign in</Text>
-          </Pressable>
-        </View>
-        
-        <View style={{flexDirection: 'row'}}> 
-          <Text style={{fontSize: 16, color: 'white'}}>Don't have an account?</Text>
-          <Pressable onPress={() => props.navigation.navigate('signup')}> 
-            <Text style={{color: '#00b1b7', fontSize: 16}}> Sign up</Text>
+          <Pressable onPress={() => signup()} style={styles.loginPressable}>
+              <Text style={styles.buttonText}>Sign Up</Text>
           </Pressable>
         </View>
     </View>
@@ -68,7 +72,8 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         backgroundColor: "#1a1a1a",
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-evenly',
+        paddingBottom: '15%',
     },
     textInput: {
         paddingLeft: 10,

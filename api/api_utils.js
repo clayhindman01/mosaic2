@@ -48,13 +48,13 @@ export const searchUser = (username, setSearchResults) => {
     })
 }
 
-const addDBUser = () => {
+const addDBUser = (username) => {
   const user = getFirebaseUser()
     console.log("addDBUser", user)
-    axios.post(base_url + "/users", {
-      userId: user.uid,
-      email: user.email,
-      createdAt: user.createdAt,
+    axios.post(base_url + "/addUser", {
+      user_id: user.uid,
+      user_email: user.email,
+      user_name: username
     }).then((response) => {
       console.log(response.data)
     }).catch((error) => {
@@ -63,11 +63,11 @@ const addDBUser = () => {
 }
 
 // Register a user in firebase using 
-export const registerFirebaseUser = async (email, password) => {
+export const registerFirebaseUser = async (state, navigation) => {
     await createUserWithEmailAndPassword(
       auth,
-      email,
-      password
+      state.email,
+      state.password
     ).then((data) => {
       const user = data.user
       console.log("registerFirebaseUser", user)
@@ -75,7 +75,8 @@ export const registerFirebaseUser = async (email, password) => {
   .catch((error) => {
     console.log(error);
   })
-  await addDBUser();
+  await addDBUser(state.username);
+  navigation.navigate('home')
   return getFirebaseUser();
 };
 

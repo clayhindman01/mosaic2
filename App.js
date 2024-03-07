@@ -9,9 +9,10 @@ import Search from "./components/pages/Search";
 import CameraScreen from "./components/pages/CameraScreen";
 import { PictureProvider } from "./api/context";
 import Login from "./components/pages/Login";
+import Signup from "./components/pages/Signup";
 
 export default function App() {
-  
+
   const Stack = createNativeStackNavigator();
 
   return (
@@ -24,9 +25,14 @@ export default function App() {
           }}
         >
           <Stack.Screen 
-            name="Login" 
+            name="login" 
             component={Login}
             options={{ headerShown: false, gestureEnabled: false }} 
+          />
+          <Stack.Screen 
+            name="signup" 
+            component={Signup}
+            options={{ headerShown: false }} 
           />
           <Stack.Screen name="home" component={UserFeed} />
           <Stack.Screen name="mosaic" component={Mosaic} />
