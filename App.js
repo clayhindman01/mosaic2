@@ -11,9 +11,9 @@ import { PictureProvider } from "./api/context";
 import Login from "./components/pages/Login";
 
 export default function App() {
-  const [userData, setUserData] = React.useState({})
-  const [userDocument, setUserDocument] = React.useState({})
+  
   const Stack = createNativeStackNavigator();
+
   return (
     <PictureProvider>
       <NavigationContainer>
@@ -23,16 +23,11 @@ export default function App() {
             animation: "none",
           }}
         >
-          {/* <Stack.Screen 
+          <Stack.Screen 
             name="Login" 
             component={Login}
             options={{ headerShown: false, gestureEnabled: false }} 
-            initialParams={{
-              userData: userData,
-              setUserData: setUserData,
-              setUserDocument: setUserDocument
-            }} 
-          /> */}
+          />
           <Stack.Screen name="home" component={UserFeed} />
           <Stack.Screen name="mosaic" component={Mosaic} />
           <Stack.Screen name="account" component={Account} />

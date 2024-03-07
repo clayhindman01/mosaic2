@@ -38,7 +38,7 @@ export const searchUser = (username, setSearchResults) => {
     setSearchResults(undefined)
     return
   }
-  axios.get(base_url + `/users/${username}`)
+  axios.get(base_url + `/searchUser/${username}`)
     .then((response) => {
       console.log("res",response.data)
       setSearchResults(response.data)
@@ -80,8 +80,7 @@ export const registerFirebaseUser = async (email, password) => {
 };
 
 // Login a user with email and password
-export const loginUser = async (email, password) => {
-  console.log(email, password);
+export const loginUser = async (email, password, navigation) => {
   try {
     const userCredential = await signInWithEmailAndPassword(
       auth,
@@ -89,7 +88,7 @@ export const loginUser = async (email, password) => {
       password
     );
     const user = userCredential.user;
-    // console.log(user);
+    navigation.navigate('home')
     return user;
   } catch (error) {
     console.log(error);
