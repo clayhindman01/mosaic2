@@ -12,8 +12,8 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import Feather from "react-native-vector-icons/Feather";
 
 export default function NavBar({ navigation, activeTab }) {
-  const navigateToTab = (tab) => {
-    navigation.navigate(tab);
+  const navigateToTab = (tab, params) => {
+    navigation.navigate(tab, params);
   };
 
   return (
@@ -71,7 +71,7 @@ export default function NavBar({ navigation, activeTab }) {
           </View>
         </Pressable>
 
-        <Pressable onPress={() => navigateToTab("account")}>
+        <Pressable onPress={() => navigateToTab("account", {selfAccount: true})}>
           <View style={styles.iconTextContainer}>
             <MaterialCommunityIcons
               name="account-outline"

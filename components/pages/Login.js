@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { StyleSheet, TextInput, Pressable, Image, View, Text } from 'react-native'
 import { loginUser, registerFirebaseUser } from '../../api/api_utils';
 
-export default function Login(props) {
+export default function Login({route, navigation}) {
 
   const [state, setState] = useState({
     email: '',
@@ -18,7 +18,7 @@ export default function Login(props) {
   }
 
   const login = () => {
-    loginUser(state.email, state.password, props.navigation)    
+    loginUser(state.email, state.password, navigation, route.params.setUser)  
   }
 
   return (
@@ -55,7 +55,7 @@ export default function Login(props) {
         
         <View style={{flexDirection: 'row'}}> 
           <Text style={{fontSize: 16, color: 'white'}}>Don't have an account?</Text>
-          <Pressable onPress={() => props.navigation.navigate('signup')}> 
+          <Pressable onPress={() => navigation.navigate('signup')}> 
             <Text style={{color: '#00b1b7', fontSize: 16}}> Sign up</Text>
           </Pressable>
         </View>

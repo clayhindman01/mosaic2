@@ -39,6 +39,7 @@ app.post(base_url + "/addUser", jsonParser, (req, res) => {
     })
 }) 
 
+// Search User Endpoint
 app.get(base_url + '/searchUser/:user_name', (req, res) => {
     connection.getConnection((err, connection) => {
         connection.query(`SELECT * FROM users WHERE user_name LIKE '%${req.params.user_name}%'`, (error, results, fields) => {
@@ -49,9 +50,10 @@ app.get(base_url + '/searchUser/:user_name', (req, res) => {
     });
 });
 
-app.get(base_url + "/getUser", jsonParser, (req, res) => {
+// 
+app.get(base_url + "/getUser/:uid", (req, res) => {
     connection.getConnection((err, connection) => {
-        connection.query(`SELECT * FROM users WHERE user_name='${req.body.user_name}'`, (error, results, fields) => {
+        connection.query(`SELECT * FROM users WHERE user_id='${req.params.uid}'`, (error, results, fields) => {
             if (error) throw error;
             res.send(results)
             console.log(results)

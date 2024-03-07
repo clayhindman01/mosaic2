@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import Mosaic from "./components/pages/Mosaic";
 import Account from "./components/pages/Account";
@@ -14,6 +14,7 @@ import Signup from "./components/pages/Signup";
 export default function App() {
 
   const Stack = createNativeStackNavigator();
+  const [user, setUser] = useState();
 
   return (
     <PictureProvider>
@@ -28,6 +29,10 @@ export default function App() {
             name="login" 
             component={Login}
             options={{ headerShown: false, gestureEnabled: false }} 
+            initialParams={{
+              user: user,
+              setUser: setUser
+            }}
           />
           <Stack.Screen 
             name="signup" 
@@ -36,7 +41,14 @@ export default function App() {
           />
           <Stack.Screen name="home" component={UserFeed} />
           <Stack.Screen name="mosaic" component={Mosaic} />
-          <Stack.Screen name="account" component={Account} />
+          <Stack.Screen 
+            name="account" 
+            component={Account}
+            initialParams={{
+              user,
+              setUser
+            }}
+           />
           <Stack.Screen 
             name="search" 
             component={Search}

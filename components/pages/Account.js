@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -11,22 +11,34 @@ import {
 import Header from "../common/Header";
 import NavBar from "../common/NavBar";
 import AccountHeader from "../common/AccountHeader";
+import { getFirebaseUser, queryDBUser } from "../../api/api_utils";
 
-export default function Account({ navigation }) {
+export default function Account({ navigation, route }) {
   const [isFollowing, setIsFollowing] = useState(true);
+  const [user, setUser] = useState()
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    if (route.params.selfAccount) {
+      const uid = getFirebaseUser().uid
+      queryDBUser(setUser, setIsLoading)
+    } else {
+      setUser(route.params.user)
+    }
+  }, [])
 
   const handleFollowingClick = () => {
     setIsFollowing(!isFollowing);
   };
 
-  return (
+  if (!isLoading) return (
     <View
       style={{
         flex: 1,
         backgroundColor: "#0a0a0a",
       }}
     >
-      <AccountHeader navigation={navigation} isBack={true} />
+      <AccountHeader navigation={navigation} isBack={true} user={user} />
 
       <View style={styles.container}>
         <ScrollView>
@@ -66,7 +78,7 @@ export default function Account({ navigation }) {
               textAlign: "center",
             }}
           >
-            My name is Clay Hindman. I am the creator and founder of Mosaic.
+            {user.user_email}
           </Text>
 
           <View style={styles.friendsContainer}>

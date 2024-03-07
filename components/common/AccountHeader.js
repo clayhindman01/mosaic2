@@ -11,13 +11,10 @@ import {
 import Feather from "react-native-vector-icons/Feather";
 
 export default function AccountHeader(props) {
-  const handleBack = () => {
-    props.navigation.pop();
-  };
 
   return (
     <View style={styles.iconContainer}>
-      <Text style={styles.MosaicText}>@clayhindman01</Text>
+      <Text style={styles.MosaicText}>@{props.user[0].user_name}</Text>
 
       <View
         style={{

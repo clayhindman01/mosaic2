@@ -50,16 +50,16 @@ export const searchUser = (username, setSearchResults) => {
 
 const addDBUser = (username) => {
   const user = getFirebaseUser()
-    console.log("addDBUser", user)
-    axios.post(base_url + "/addUser", {
-      user_id: user.uid,
-      user_email: user.email,
-      user_name: username
-    }).then((response) => {
-      console.log(response.data)
-    }).catch((error) => {
-      console.error(error)
-    })
+  console.log("addDBUser", user)
+  axios.post(base_url + "/addUser", {
+    user_id: user.uid,
+    user_email: user.email,
+    user_name: username
+  }).then((response) => {
+    console.log(response.data)
+  }).catch((error) => {
+    console.error(error)
+  })
 }
 
 // Register a user in firebase using 
@@ -81,7 +81,7 @@ export const registerFirebaseUser = async (state, navigation) => {
 };
 
 // Login a user with email and password
-export const loginUser = async (email, password, navigation) => {
+export const loginUser = async (email, password, navigation, setUser) => {
   try {
     const userCredential = await signInWithEmailAndPassword(
       auth,
@@ -90,11 +90,21 @@ export const loginUser = async (email, password, navigation) => {
     );
     const user = userCredential.user;
     navigation.navigate('home')
-    return user;
   } catch (error) {
     console.log(error);
   }
 };
+
+// Query the user where uid from firebase === user_id from db
+export const queryDBUser = (uid, setUser, setIsLoading) => {
+  axios.get(base_url + `/getUser/${uid}`).then((response) => {
+    console.log('queryDBUser', response.data)
+    setUser(response.data)
+    setIsLoading(false)
+  }).catch((error) => {
+    console.error(error)
+  })
+}
 
 // Get the current user from firebase
 export const getFirebaseUser = () => {
