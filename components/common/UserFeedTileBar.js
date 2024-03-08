@@ -7,7 +7,6 @@ import EvilIcons from "react-native-vector-icons/EvilIcons";
 export default function UserFeedTileBar({ isLiked, setIsLiked }) {
   return (
     <View style={styles.bottomContainer}>
-      {/* Likes */}
       <Pressable
         onPress={() => {
           setIsLiked(!isLiked);
@@ -15,7 +14,7 @@ export default function UserFeedTileBar({ isLiked, setIsLiked }) {
       >
         <View style={styles.iconContainer}>
           {!isLiked ? (
-            <Icon name="hearto" size={30} color="white" style={styles.icon} />
+            <Icon name="heart" size={30} color="white" style={styles.icon} />
           ) : (
             <Icon name="heart" size={30} color="red" style={styles.icon} />
           )}
@@ -44,16 +43,12 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     position: "relative",
-    right: 60,
+    top: -315,
     width: 60,
     flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#00b1b7",
-    borderBottomLeftRadius: 30,
-    borderTopLeftRadius: 30,
-    paddingTop: "7%",
-    paddingBottom: "7%",
+    backgroundColor: "transparent",
     zIndex: 2,
   },
   pictureContainer: {

@@ -18,7 +18,7 @@ export default function Login({route, navigation}) {
   }
 
   const login = () => {
-    loginUser(state.email, state.password, navigation, route.params.setUser)  
+    loginUser(state.email, state.password, navigation)  
   }
 
   return (

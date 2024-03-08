@@ -17,7 +17,7 @@ export default function UserFeed({ navigation }) {
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
             backgroundColor: "#1a1a1a",
-            padding: 15,
+            padding: 10,
           }}
           data={[{ key: "a" }, { key: "b" }, {}, {}, {}, {}, {}]}
           renderItem={({ item }) => {

@@ -22,11 +22,11 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-const base_url = Platform.OS === "ios"? "http://10.0.0.68:3000/api/v1/mosaic": "http://10.0.2.2:3000/api/v1/mosaic"
+const base_url = Platform.OS === "ios"? "http://10.129.128.120:3000/api/v1/mosaic": "http://10.0.2.2:3000/api/v1/mosaic"
+// const base_url = Platform.OS === "ios"? "http://10.0.0.68:3000/api/v1/mosaic": "http://10.0.2.2:3000/api/v1/mosaic"
 
 /**
  * Call Node API and search database for usernames containing the search result.
@@ -81,7 +81,7 @@ export const registerFirebaseUser = async (state, navigation) => {
 };
 
 // Login a user with email and password
-export const loginUser = async (email, password, navigation, setUser) => {
+export const loginUser = async (email, password, navigation) => {
   try {
     const userCredential = await signInWithEmailAndPassword(
       auth,
@@ -98,8 +98,8 @@ export const loginUser = async (email, password, navigation, setUser) => {
 // Query the user where uid from firebase === user_id from db
 export const queryDBUser = (uid, setUser, setIsLoading) => {
   axios.get(base_url + `/getUser/${uid}`).then((response) => {
-    console.log('queryDBUser', response.data)
-    setUser(response.data)
+    const res = response.data
+    setUser(res[0])
     setIsLoading(false)
   }).catch((error) => {
     console.error(error)

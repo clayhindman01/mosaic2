@@ -17,13 +17,17 @@ export default function Account({ navigation, route }) {
   const [isFollowing, setIsFollowing] = useState(true);
   const [user, setUser] = useState()
   const [isLoading, setIsLoading] = useState(true)
+  const {selfAccount} = route.params
 
   useEffect(() => {
-    if (route.params.selfAccount) {
+    console.log(route.params)
+    if (selfAccount) {
+      setIsLoading(true)
       const uid = getFirebaseUser().uid
-      queryDBUser(setUser, setIsLoading)
+      queryDBUser(uid, setUser, setIsLoading)
     } else {
       setUser(route.params.user)
+      setIsLoading(false)
     }
   }, [])
 
@@ -54,7 +58,8 @@ export default function Account({ navigation, route }) {
                 maxWidth: "60%",
               }}
             >
-              <Pressable onPress={() => handleFollowingClick()}>
+              {!selfAccount? (
+                <Pressable onPress={() => handleFollowingClick()}>
                 <View
                   style={[
                     styles.followButton,
@@ -68,6 +73,8 @@ export default function Account({ navigation, route }) {
                   </Text>
                 </View>
               </Pressable>
+              ): null}
+              
             </View>
           </View>
           <Text
@@ -78,7 +85,6 @@ export default function Account({ navigation, route }) {
               textAlign: "center",
             }}
           >
-            {user.user_email}
           </Text>
 
           <View style={styles.friendsContainer}>

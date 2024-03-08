@@ -14,7 +14,7 @@ export default function AccountHeader(props) {
 
   return (
     <View style={styles.iconContainer}>
-      <Text style={styles.MosaicText}>@{props.user[0].user_name}</Text>
+      <Text style={styles.MosaicText}>@{props.user.user_name}</Text>
 
       <View
         style={{

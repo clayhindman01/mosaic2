@@ -18,10 +18,6 @@ export default function Header(props) {
   return (
     <View style={styles.iconContainer}>
       <View style={{ flexDirection: "row" }}>
-        <Image
-          source={require("../../assets/testProfile.jpg")}
-          style={styles.accountPicture}
-        />
         <Text style={styles.MosaicText}>Mosaic</Text>
       </View>
 
@@ -31,7 +27,10 @@ export default function Header(props) {
           flexDirection: "row",
         }}
       >
-        <Ionicons name="notifications-outline" color="white" size={30} />
+        <Image
+          source={require("../../assets/testProfile.jpg")}
+          style={styles.accountPicture}
+        />
       </View>
     </View>
   );

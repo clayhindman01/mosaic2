@@ -14,6 +14,7 @@ import {
 import Header from "../common/Header";
 import NavBar from "../common/NavBar";
 import { searchUser } from "../../api/api_utils";
+import SearchResultAccount from "../common/SearchResultAccount";
 
 export default function Search({ navigation }) {
   const [search, setSearch] = useState("");
@@ -49,7 +50,8 @@ export default function Search({ navigation }) {
           {searchResults !== undefined? 
             searchResults.map((item) => (
               <View style={styles.noSearch}>
-                <Text style={{ color: "gray", textAlign: "center", fontSize: 20 }}>{item.user_name}</Text>
+                <SearchResultAccount user={item} navigation={navigation} />
+                {/* <Text style={{ color: "gray", fontSize: 20 }}>{item.user_name}</Text> */}
               </View>
             )): (
               <Text style={{ color: "gray", textAlign: "center", fontSize: 20 }}>
@@ -58,12 +60,6 @@ export default function Search({ navigation }) {
               </Text>
             )
           }
-          {() => {
-            for (item in searchResults) {
-              console.log(item)
-              return <Text>{item.user_name}</Text>
-            }
-          }}
       </View>
       <NavBar navigation={navigation} activeTab="search" />
     </View>
@@ -78,12 +74,9 @@ const styles = StyleSheet.create({
   },
   searchResults: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    // alignItems: "center",
+    // justifyContent: "center",
     padding: 30,
-  },
-  noSearch: {
-    
   },
   searchBar: {
     margin: 10,
