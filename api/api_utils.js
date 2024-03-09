@@ -25,8 +25,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-const base_url = Platform.OS === "ios"? "http://10.129.128.120:3000/api/v1/mosaic": "http://10.0.2.2:3000/api/v1/mosaic"
-// const base_url = Platform.OS === "ios"? "http://10.0.0.68:3000/api/v1/mosaic": "http://10.0.2.2:3000/api/v1/mosaic"
+// const base_url = Platform.OS === "ios"? "http://192.168.2.183:3000/api/v1/mosaic": "http://127.0.0.1:3000/api/v1/mosaic"
+const base_url = Platform.OS === "ios"? "http://127.0.0.1:3000/api/v1/mosaic": "http://10.0.2.2:3000/api/v1/mosaic"
 
 /**
  * Call Node API and search database for usernames containing the search result.
@@ -108,7 +108,6 @@ export const queryDBUser = (uid, setUser, setIsLoading) => {
 
 // Get the current user from firebase
 export const getFirebaseUser = () => {
-  console.log(auth.currentUser);
   return auth.currentUser;
 };
 
@@ -139,3 +138,18 @@ export const loginWithGoogle = async () => {
     console.log(error);
   }
 };
+
+
+export const insertTileIntoDB = async (base64Data) => {
+  user = getFirebaseUser();
+  axios.post(base_url + `/addTile/${user.uid}`, {data: base64Data}).then((response) => {
+    console.log(response.data);
+  })
+}
+
+export const getTilesForUser = (uid, setTiles) => {
+  axios.get(base_url + `/getTiles/${uid}`).then((response) => {
+    console.log(response.data)
+    setTiles(response.data)
+  })
+}

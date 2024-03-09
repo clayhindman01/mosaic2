@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { encode } from "base-64";
 import {
   StyleSheet,
   View,
@@ -11,11 +12,13 @@ import {
 import Header from "../common/Header";
 import NavBar from "../common/NavBar";
 import AccountHeader from "../common/AccountHeader";
-import { getFirebaseUser, queryDBUser } from "../../api/api_utils";
+import { getFirebaseUser, getTilesForUser, queryDBUser } from "../../api/api_utils";
+import { Buffer } from "buffer";
 
 export default function Account({ navigation, route }) {
   const [isFollowing, setIsFollowing] = useState(true);
   const [user, setUser] = useState()
+  const [tiles, setTiles] = useState({})
   const [isLoading, setIsLoading] = useState(true)
   const {selfAccount} = route.params
 
@@ -25,11 +28,17 @@ export default function Account({ navigation, route }) {
       setIsLoading(true)
       const uid = getFirebaseUser().uid
       queryDBUser(uid, setUser, setIsLoading)
+      getTilesForUser(uid, setTiles)
     } else {
       setUser(route.params.user)
+      getTilesForUser(route.params.user.uid, setTiles)
       setIsLoading(false)
     }
   }, [])
+
+  useEffect(() => {
+    console.log('reloading')
+  }, [route])
 
   const handleFollowingClick = () => {
     setIsFollowing(!isFollowing);
@@ -89,7 +98,7 @@ export default function Account({ navigation, route }) {
 
           <View style={styles.friendsContainer}>
             <View style={styles.infoTile}>
-              <Text style={styles.numberTextStyle}>7</Text>
+              <Text style={styles.numberTextStyle}>{tiles? tiles.length: null}</Text>
               <Text style={styles.textStyle}>Tiles Taken</Text>
             </View>
             <View style={styles.infoTile}>
@@ -106,62 +115,18 @@ export default function Account({ navigation, route }) {
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
-              <View style={styles.tile}>
-                <Image
-                  source={require("../../assets/placeholder.jpg")}
-                  style={styles.picture}
-                />
-              </View>
+              {Object.keys(tiles).length != 0 ? tiles.map((tile) => {
+                return (
+                  <View style={styles.tile}>
+                    <Image
+                      // source={{ uri: encode(tile.tile_image.data) }}
+                      source={{ uri: Buffer.from(tile.tile_image.data).toString('base64') }}
+                      style={styles.picture}
+                    />
+                  </View>
+                )
+              }): console.log('null')}
 
-              <View style={styles.tile}>
-                <Image
-                  source={require("../../assets/placeholder.jpg")}
-                  style={styles.picture}
-                />
-              </View>
-
-              <View style={styles.tile}>
-                <Image
-                  source={require("../../assets/placeholder.jpg")}
-                  style={styles.picture}
-                />
-              </View>
-            </View>
-
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <View style={styles.tile}>
-                <Image
-                  source={require("../../assets/placeholder.jpg")}
-                  style={styles.picture}
-                />
-              </View>
-
-              <View style={styles.tile}>
-                <Image
-                  source={require("../../assets/placeholder.jpg")}
-                  style={styles.picture}
-                />
-              </View>
-
-              <View style={styles.tile}>
-                <Image
-                  source={require("../../assets/placeholder.jpg")}
-                  style={styles.picture}
-                />
-              </View>
-            </View>
-
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <View style={styles.tile}>
-                <Image
-                  source={require("../../assets/placeholder.jpg")}
-                  style={styles.picture}
-                />
-              </View>
             </View>
           </View>
         </ScrollView>
@@ -241,7 +206,6 @@ const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "#737272",
     flexDirection: "column",
-    paddingBottom: 35,
   },
   tile: {
     width: "33.3%",

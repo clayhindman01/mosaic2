@@ -11,6 +11,7 @@ import { Camera, CameraType } from "expo-camera";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { PictureDispatchContext } from "../../api/context";
+import { insertTileIntoDB } from "../../api/api_utils";
 
 export default function CameraScreen({ navigation }) {
   const setPicture = useContext(PictureDispatchContext);
@@ -18,15 +19,22 @@ export default function CameraScreen({ navigation }) {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
 
+  const options = {
+    quality: 0.5,
+    base64: true,
+    skipProcessing: true,
+    onPictureSaved: this.onPictureSaved
+  }
+
   takePicture = () => {
     if (this.camera) {
-      this.camera.takePictureAsync({ onPictureSaved: this.onPictureSaved });
+      this.camera.takePictureAsync(options);
     }
   };
 
   onPictureSaved = (photo) => {
-    console.log(photo);
-    setPicture(photo);
+    insertTileIntoDB(photo.base64);
+    // setPicture(photo);
   };
 
   if (!permission) {

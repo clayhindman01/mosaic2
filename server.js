@@ -1,6 +1,7 @@
 const mysql = require("mysql");
 const express = require("express");
 const bodyParser = require("body-parser");
+const { connect } = require("http2");
 
 const connection = mysql.createPool({
     host: 'mosaic-mysql-server.mysql.database.azure.com',
@@ -20,6 +21,9 @@ app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 });
+
+// app.use(express.json({limit: '50mb'}));
+// app.use(express.urlencoded({limit: '50mb'}));
 
 connection.getConnection((err, connection) => {
     if (err) throw console.error(err)
@@ -52,18 +56,19 @@ app.get(base_url + '/searchUser/:user_name', (req, res) => {
 
 // 
 app.get(base_url + "/getUser/:uid", (req, res) => {
+    let data = {};
     connection.getConnection((err, connection) => {
         connection.query(`SELECT * FROM users WHERE user_id='${req.params.uid}'`, (error, results, fields) => {
             if (error) throw error;
-            res.send(results)
+            res.json(results)
             console.log(results)
         })
     })
 })
 
-app.get(base_url + "/tile/:tileId", (req, res) => {
+app.get(base_url + "/getTiles/:user_id", (req, res) => {
     connection.getConnection((err, connection) => {
-        connection.query(`SELECT * FROM mosaic.tile WHERE tile_id = ${req.params.tileId}`,
+        connection.query(`SELECT * FROM tiles WHERE user_id ='${req.params.user_id}'`,
         (error, results, fields) => {
             if (error) throw error;
             res.send(results)
@@ -71,7 +76,19 @@ app.get(base_url + "/tile/:tileId", (req, res) => {
     })
 })
 
+app.post(base_url + "/addTile/:uid", jsonParser, (req, res) => {
+    connection.getConnection((error, connection) => {
+        connection.query(`INSERT INTO tiles (user_id, tile_image) VALUES ('${req.params.uid}', '${req.body.data}')`,
+        (error, results, fields) => {
+            if (error) throw error;
+            res.send(results)
+            console.log(results)
+        })
+    })
+})
+
 app.get(base_url + "/mosaics/:mosaicId", (req, res) => {
+    console.log(req.body)
     connection.getConnection((err, connection) => {
         connection.query(`SELECT * FROM mosaic.mosaic WHERE mosaic_id = ${req.params.mosaicId}`,
         (error, results, fields) => {
